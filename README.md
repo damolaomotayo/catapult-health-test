@@ -21,9 +21,9 @@ Please follow the instructions below to run or install the application:
 * Supertest
 
 ### Observations:
-* A general observation I have is that some resource endpoints (delete dictionary and modify key-pair) routes are not properly structured. When designing RESTFul APIs, its good practice to use **path params** to identify a specific resource or resources instead of using **query string**. In the public API both **path params** and **query string**, this is not good practice. **Query string** are best for sorting or searching.
+* A general observation I have is that the resource routes endpoints are not properly structured. When designing RESTFul APIs, its good practice to use **path params** to identify a specific resource or resources instead of using **query string**. In the public API both **path params** and **query string** were used together, this is not good practice. **Query string** are best for sorting or searching.
 * There were no proper request validation specifically for creating/modifying a Key-Value Pair dictionary, and the status code return when you pass an empty request payload is wrong.
-* The **creating/modifying a Key-Value Pair** endpoint should be a **PATCH** or **PUT** not **POST**.
+* The **creating/modifying a Key-Value Pair** endpoint should be a **PATCH** or **PUT** not **POST** request.
 
 
 Thank you!!!
