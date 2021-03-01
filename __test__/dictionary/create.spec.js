@@ -1,4 +1,4 @@
-import { STATUS_401, STATUS_200, STATUS_201, CONTENT_HEADER, CONTENT_TYPE, STATUS } from "../../constants";
+const constants = require("../../constants");
 let request = require('supertest');
 
 require('dotenv').config();
@@ -11,10 +11,10 @@ describe("POST /creating a dictionary", () => {
         request
             .post('/dictionary')
             .send(req_body)
-            .set('Accept', CONTENT_HEADER)
-            .expect(STATUS_401)
+            .set('Accept', constants().CONTENT_HEADER)
+            .expect(constants().STATUS_401)
             .then((response) => {
-                expect(response.status).toEqual(STATUS_401);
+                expect(response.status).toEqual(constants().STATUS_401);
             });
     });
 
@@ -22,18 +22,18 @@ describe("POST /creating a dictionary", () => {
         request
             .post('/dictionary')
             .send({})
-            .set('Accept', CONTENT_HEADER)
+            .set('Accept', constants().CONTENT_HEADER)
             .set('Authorization', `Basic ${process.env.API_KEY}`)
-            .expect(STATUS_201)
+            .expect(constants().STATUS_201)
             .then((response) => {
                 // validating response header
-                expect(response.header).toHaveProperty(STATUS);
+                expect(response.header).toHaveProperty(constants().STATUS);
                 expect(response.header.status).toBe('201 Created');
-                expect(response.header).toHaveProperty(CONTENT_TYPE);
-                expect(response.header['content-type']).toBe(CONTENT_HEADER);
+                expect(response.header).toHaveProperty(constants().CONTENT_TYPE);
+                expect(response.header['content-type']).toBe(constants().CONTENT_HEADER);
 
                 // validating response status
-                expect(response.status).toEqual(STATUS_201);
+                expect(response.status).toEqual(constants().STATUS_201);
 
                 // validating response body
                 expect(JSON.parse(response.text)).toHaveProperty('id');
@@ -53,9 +53,9 @@ describe("POST /create or modifies a key/value pair given an existing dictionary
             .post(`/dictionary/${dictionary_id}/keys/key?id=${dictionary_id}`)
             .send(req_body)
             .set('Accept', 'application/json')
-            .expect(STATUS_401)
+            .expect(constants().STATUS_401)
             .then((response) => {
-                expect(response.status).toEqual(STATUS_401);
+                expect(response.status).toEqual(constants().STATUS_401);
             });
     });
 
@@ -69,16 +69,16 @@ describe("POST /create or modifies a key/value pair given an existing dictionary
             .send(req_body)
             .set('Accept', 'application/json')
             .set('Authorization', `Basic ${process.env.API_KEY}`)
-            .expect(STATUS_200)
+            .expect(constants().STATUS_200)
             .then((response) => {
                 // validating response header
-                expect(response.header).toHaveProperty(STATUS);
+                expect(response.header).toHaveProperty(constants().STATUS);
                 expect(response.header.status).toBe('200 OK');
-                expect(response.header).toHaveProperty(CONTENT_TYPE);
-                expect(response.header['content-type']).toBe(CONTENT_HEADER);
+                expect(response.header).toHaveProperty(constants().CONTENT_TYPE);
+                expect(response.header['content-type']).toBe(constants().CONTENT_HEADER);
 
                 // validating response status
-                expect(response.status).toEqual(STATUS_200);
+                expect(response.status).toEqual(constants().STATUS_200);
             });
     });
 
@@ -97,19 +97,19 @@ describe("POST /create or modifies a key/value pair given an existing dictionary
             .send(req_body)
             .set('Accept', 'application/json')
             .set('Authorization', `Basic ${process.env.API_KEY}`)
-            .expect(STATUS_200)
+            .expect(constants().STATUS_200)
             .then((response) => {
                 // validating response header
-                expect(response.header).toHaveProperty(STATUS);
+                expect(response.header).toHaveProperty(constants().STATUS);
                 expect(response.header.status).toBe('200 OK');
-                expect(response.header).toHaveProperty(CONTENT_TYPE);
-                expect(response.header['content-type']).toBe(CONTENT_HEADER);
+                expect(response.header).toHaveProperty(constants().CONTENT_TYPE);
+                expect(response.header['content-type']).toBe(constants().CONTENT_HEADER);
 
                 // validating response body
                 expect(JSON.parse(response.text)).toHaveProperty('error')
 
                 // validating response status
-                expect(response.status).toEqual(STATUS_200);
+                expect(response.status).toEqual(constants().STATUS_200);
             });
     })
 })

@@ -1,4 +1,4 @@
-import { STATUS_204, STATUS_401, STATUS_404 } from "../../constants";
+const constants = require("../../constants");
 let request = require('supertest');
 
 require('dotenv').config();
@@ -17,28 +17,28 @@ describe("DELETE /deleting a dictionary", () => {
         request
             .delete(`/dictionary/${dictionary_id}?id=${dictionary_id}`)
             .set('Authorization', `Basic ${process.env.API_KEY}`)
-            .expect(STATUS_204)
+            .expect(constants().STATUS_204)
             .then((response) => {
-                expect(response.status).toEqual(STATUS_204);
+                expect(response.status).toEqual(constants().STATUS_204);
             });
     });
 
     it("Should return an unauthorized response", () => {
         request
             .delete(`/dictionary/${dictionary_id}?id=${dictionary_id}`)
-            .expect(STATUS_401)
+            .expect(constants().STATUS_401)
             .then((response) => {
-                expect(response.status).toEqual(STATUS_401);
+                expect(response.status).toEqual(constants().STATUS_401);
             });
     });
 
     it("Should return Not Found resonse", () => {
         request
             .delete(`/dictionary/id=`)
-            .expect(STATUS_404)
+            .expect(constants().STATUS_404)
             .set('Authorization', `Basic ${process.env.API_KEY}`)
             .then((response) => {
-                expect(response.status).toEqual(STATUS_404);
+                expect(response.status).toEqual(constants().STATUS_404);
             });
     });
 });
